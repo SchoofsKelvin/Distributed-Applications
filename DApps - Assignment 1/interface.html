@@ -1,0 +1,74 @@
+<html>
+
+<head>
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<style>
+		form>div {
+			width: 400px;
+			margin: 5px;
+		}
+
+		form>div>input {
+			float: right;
+		}
+
+	</style>
+</head>
+
+<body>
+	<div>Server: <input name="url" id="url" type="text" value="http://localhost:8080" /></div>
+	<br/>
+	<form id="addform" style="display:none;">
+		<div>Name: <input name="name" id="name" type="text" /></div>
+		<div>Weather description: <input name="desc" id="desc" type="text" /></div>
+		<div>Wind speed: <input name="windspeed" id="windspeed" type="number" /></div>
+		<div>Wind direction: <input name="winddir" id="winddir" type="number" step="1" /></div>
+		<div>Sunrise: <input name="sunrise" id="sunrise" type="number" step="1" /></div>
+		<div>Sunset: <input name="sunset" id="sunset" type="number" step="1" /></div>
+		<div><input id="submit" type="submit" value="Add" /></div>
+	</form>
+	<code id="aresult"></code>
+	<br/>
+	<br/>
+	<form id="getform">
+		<div>Name: <input name="name" id="gname" type="text" /></div>
+		<div><input id="submit" type="submit" value="Get" /></div>
+	</form>
+	<code id="bresult"></code>
+	<script>
+		const aresult = $("#aresult");
+		const addform = $("#addform");
+		addform.submit(() => {
+			const url = $("#url").val() + "/add";
+			const data = {
+				name: $("#name").val(),
+				weatherDescription: $("#desc").val(),
+				windSpeed: $("#windspeed").val(),
+				windDirection: $("#winddir").val(),
+				sunrise: $("#sunrise").val(),
+				sunset: $("#sunset").val(),
+			}
+			const p = $.ajax({
+				url,
+				type: 'POST',
+				data: JSON.stringify(data),
+				contentType: 'application/json'
+			});
+			p.done(() => aresult.text("Done"));
+			p.fail((e) => aresult.text(e.responseText || "Unknown error"));
+			return false;
+		});
+
+		const getform = $("#getform");
+		getform.submit(() => {
+			const url = $("#url").val() + "/get?name=";
+			$.get(url + encodeURIComponent($("#gname").val()), (data) => {
+				$("#bresult").text(data ? JSON.stringify(data) : "No data");
+			});
+			return false;
+		});
+
+	</script>
+</body>
+
+</html>

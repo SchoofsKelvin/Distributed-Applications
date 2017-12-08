@@ -1,0 +1,26 @@
+zuul:
+  ignoredServices: '*'
+  routes:
+    composition-service:
+      path: /composition/**
+    destination-service:
+      path: /destination/**
+    review-service:
+      path: /review/**
+    weather-service:
+      path: /weather/**
+    weather-fetcher:
+      path: /weather-fetcher/**
+ribbon:
+  eureka:
+    enabled: true
+server:
+  port: 8765
+  eureka: null
+  instance:
+    leaseRenewalIntervalInSeconds: 10
+    leaseExpirationDurationInSeconds: 20
+stores:
+  ribbon:
+    eureka:
+      enabled: true

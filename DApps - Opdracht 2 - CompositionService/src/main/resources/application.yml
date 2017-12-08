@@ -1,0 +1,10 @@
+server:
+  port: 0
+eureka:
+  instance:
+    leaseRenewalIntervalInSeconds: 10
+    instanceId: ${vcap.application.instance_id:${spring.application.name}:${spring.application.instance_id:${random.value}}}
+stores:
+  ribbon:
+    eureka:
+      enabled: true

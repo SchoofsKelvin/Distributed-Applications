@@ -1,0 +1,9 @@
+server:
+  port: 0
+eureka:
+  instance:
+    leaseRenewalIntervalInSeconds: 10
+stores:
+  ribbon:
+    eureka:
+      enabled: true

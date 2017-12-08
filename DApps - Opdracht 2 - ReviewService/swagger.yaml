@@ -1,0 +1,99 @@
+swagger: "2.0"
+info:
+  version: "1.0.0"
+  title: "Swagger Petstore"
+basePath: "/"
+tags:
+- name: "weather"
+  description: "Weather data"
+paths:
+  /add:
+    post:
+      tags: [ "weather" ]
+      summary: "Update the weatherdata for a city"
+      operationId: "add"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "The weatherdata to be added"
+        required: true
+        schema:
+          $ref: "#/definitions/Weather"
+      responses:
+        200:
+          description: "Data added"
+  /get:
+    get:
+      tags: [ "weather" ]
+      summary: "Get the latest weather for the given city"
+      operationId: "get"
+      parameters:
+      - in: "query"
+        name: "name"
+        description: "Location (city name)"
+        required: false
+        default: "Leuven"
+        type: "string"
+      responses:
+        200:
+          description: "Data added"
+          schema:
+            $ref: "#/definitions/Weather"
+  /getall:
+    get:
+      tags: [ "weather" ]
+      summary: "Get the latest weather for the given city"
+      operationId: "getall"
+      parameters:
+      - in: "query"
+        name: "name"
+        description: "Location (city name)"
+        required: false
+        default: "Leuven"
+        type: "string"
+      responses:
+        200:
+          description: "Array with all weather data for the given city"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Weather"
+  /avgwindspeed:
+    get:
+      tags: [ "weather" ]
+      summary: "Get the average windspeed for the given city"
+      operationId: "avgwindspeed"
+      parameters:
+      - in: "query"
+        name: "name"
+        description: "Location (city name)"
+        required: false
+        default: "Leuven"
+        type: "string"
+      responses:
+        200:
+          description: "Average windspeed"
+          schema:
+            type: "number"
+definitions:
+  Weather:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+        description: "Location (city name)"
+      windSpeed:
+        type: "number"
+        description: "Speed of the wind"
+      windDirection:
+        type: "number"
+        description: "Direction of wind in degrees"
+      weatherDescription:
+        type: "string"
+        description: "Order Status"
+      sunrise:
+        type: "integer"
+        description: "Timestamp of sunrise"
+      sunset:
+        type: "integer"
+        description: "Timestamp of sunset"

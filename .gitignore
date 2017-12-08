@@ -1,0 +1,7 @@
+
+# Java build stuff
+target/
+bin/
+build/
+.metadata
+.graddle
